@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор случайных чисел</title>
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('ru-RU');
+      document.getElementById('time').textContent = `Текущее время: ${timeString}`;
+    }
+
+    setInterval(updateTime, 1000);
+
+    function generateNumbers() {
+      const min = parseInt(document.getElementById('min').value);
+      const max = parseInt(document.getElementById('max').value);
+      const count = parseInt(document.getElementById('count').value);
+      const allowRepeats = document.getElementById('repeats').checked;
+      const sortOrder = document.getElementById('sort').value;
+
+      if (isNaN(min) || isNaN(max) || isNaN(count) || min > max || count <= 0) {
+        document.getElementById('result').textContent = 'Введите корректные значения!';
+        return;
+      }
+
+      const range = max - min + 1;
+      if (!allowRepeats && count > range) {
+        document.getElementById('result').textContent = 'Невозможно сгенерировать столько уникальных чисел!';
+        return;
+      }
+
+      let numbers = [];
+      if (allowRepeats) {
+        for (let i = 0; i < count; i++) {
+          const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+          numbers.push(randomNum);
+        }
+      } else {
+        const numSet = new Set();
+        while (numSet.size < count) {
+          const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
+          numSet.add(randomNum);
+        }
+        numbers = [...numSet];
+      }
+
+      if (sortOrder === "asc") {
+        numbers.sort((a, b) => a - b);
+      } else if (sortOrder === "desc") {
+        numbers.sort((a, b) => b - a);
+      }
+
+      document.getElementById('result').textContent = `Ваши числа: ${numbers.join(', ')}`;
+    }
+
+    function resetAll() {
+      document.getElementById('min').value = '';
+      document.getElementById('max').value = '';
+      document.getElementById('count').value = '';
+      document.getElementById('repeats').checked = false;
+      document.getElementById('sort').value = 'none';
+      document.getElementById('result').textContent = '';
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+    }
+    input, select {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      width: 120px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #66a6ff;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin: 5px;
+    }
+    button:hover {
+      background: #4a8be0;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    #time {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #444;
+    }
+  </style>
+</head>
+<body onload="updateTime()">
+  <div class="card">
+    <h1>🎲 Генератор случайных чисел</h1>
+    <div id="time"></div>
+    <div>
+      <input type="number" id="min" placeholder="Минимум">
+      <input type="number" id="max" placeholder="Максимум">
+      <input type="number" id="count" placeholder="Кол-во чисел">
+      <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
+      <label>
+        Сортировка:
+        <select id="sort">
+          <option value="none">Без сортировки</option>
+          <option value="asc">По возрастанию</option>
+          <option value="desc">По убыванию</option>
+        </select>
+      </label>
+    </div>
+    <button onclick="generateNumbers()">Сгенерировать</button>
+    <button onclick="resetAll()">Сбросить</button>
+    <div id="result"></div>
+  </div>
+</body>
+</html>
