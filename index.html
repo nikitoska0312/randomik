@@ -1,190 +1,228 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Генератор случайных чисел</title>
-  <script>
-    function updateDateTime() {
-      const now = new Date();
-      const dateString = now.toLocaleDateString('ru-RU', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-      const timeString = now.toLocaleTimeString('ru-RU');
-      document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Генератор случайных чисел</title>
+<script>
+function updateDateTime() {
+  const now = new Date();
+  const dateString = now.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+  const timeString = now.toLocaleTimeString('ru-RU');
+  document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
+}
+setInterval(updateDateTime, 1000);
 
-    setInterval(updateDateTime, 1000);
+function generateNumbers(min, max, count, allowRepeats, sortOrder, animated = true) {
+  const resultEl = document.getElementById('result');
+  if (isNaN(min) || isNaN(max) || isNaN(count) || min > max || count <= 0) {
+    resultEl.textContent = 'Введите корректные значения!';
+    return;
+  }
+  if (count > 1000) {
+    resultEl.textContent = 'Слишком много чисел! Максимум 1000.';
+    return;
+  }
+  const range = max - min + 1;
+  if (!allowRepeats && count > range) {
+    resultEl.textContent = 'Невозможно сгенерировать столько уникальных чисел!';
+    return;
+  }
 
-    function generateNumbers() {
-      const min = parseInt(document.getElementById('min').value);
-      const max = parseInt(document.getElementById('max').value);
-      const count = parseInt(document.getElementById('count').value);
-      const allowRepeats = document.getElementById('repeats').checked;
-      const sortOrder = document.getElementById('sort').value;
+  let numbers = [];
+  if (allowRepeats) {
+    for (let i = 0; i < count; i++) numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+  } else {
+    const numSet = new Set();
+    while (numSet.size < count) numSet.add(Math.floor(Math.random() * (max - min + 1)) + min);
+    numbers = [...numSet];
+  }
 
-      const resultEl = document.getElementById('result');
+  if (sortOrder === "asc") numbers.sort((a,b)=>a-b);
+  else if (sortOrder === "desc") numbers.sort((a,b)=>b-a);
 
-      if (isNaN(min) || isNaN(max) || isNaN(count) || min > max || count <= 0) {
-        resultEl.textContent = 'Введите корректные значения!';
-        return;
-      }
+  resultEl.innerHTML = '';
+  resultEl.classList.remove("show");
+  if (animated) {
+    numbers.forEach((n, i) => setTimeout(()=> {
+      resultEl.innerHTML += `<span class="num">${n}</span> `;
+      if(i===numbers.length-1) resultEl.classList.add("show");
+    }, i*300));
+  } else {
+    resultEl.innerHTML = numbers.map(n=>`<span class="num">${n}</span>`).join(' ');
+    resultEl.classList.add("show");
+  }
+}
 
-      if (count > 1000) {
-        resultEl.textContent = 'Слишком много чисел! Максимум 1000.';
-        return;
-      }
+function generateFromInputs() {
+  const min = parseInt(document.getElementById('min').value);
+  const max = parseInt(document.getElementById('max').value);
+  const count = parseInt(document.getElementById('count').value);
+  const allowRepeats = document.getElementById('repeats').checked;
+  const sortOrder = document.getElementById('sort').value;
+  generateNumbers(min,max,count,allowRepeats,sortOrder,true);
+}
 
-      const range = max - min + 1;
-      if (!allowRepeats && count > range) {
-        resultEl.textContent = 'Невозможно сгенерировать столько уникальных чисел!';
-        return;
-      }
+function resetAll() {
+  document.getElementById('min').value='';
+  document.getElementById('max').value='';
+  document.getElementById('count').value='';
+  document.getElementById('repeats').checked=false;
+  document.getElementById('sort').value='none';
+  const resultEl=document.getElementById('result');
+  resultEl.textContent='';
+  resultEl.classList.remove("show");
+}
 
-      let numbers = [];
-      if (allowRepeats) {
-        for (let i = 0; i < count; i++) {
-          const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-          numbers.push(randomNum);
-        }
-      } else {
-        const numSet = new Set();
-        while (numSet.size < count) {
-          const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-          numSet.add(randomNum);
-        }
-        numbers = [...numSet];
-      }
+function toggleThemeSwitch(checkbox){
+  document.body.classList.toggle("dark", checkbox.checked);
+  localStorage.setItem("theme", checkbox.checked ? "dark" : "light");
+}
 
-      if (sortOrder === "asc") {
-        numbers.sort((a, b) => a - b);
-      } else if (sortOrder === "desc") {
-        numbers.sort((a, b) => b - a);
-      }
+window.onload=function(){
+  updateDateTime();
+  const savedTheme=localStorage.getItem("theme");
+  const themeSwitch=document.getElementById("themeSwitch");
+  if(savedTheme){
+    if(savedTheme==="dark") document.body.classList.add("dark");
+    themeSwitch.checked = savedTheme==="dark";
+  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add("dark");
+    themeSwitch.checked = true;
+  }
+}
+</script>
+<style>
+body{
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg,#89f7fe,#66a6ff);
+  transition: background 0.3s,color 0.3s;
+}
+body.dark{
+  background: linear-gradient(135deg,#2c3e50,#000);
+  color:#f0f0f0;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  text-align:center;
+  max-width:450px;
+  transition: background 0.3s,color 0.3s;
+}
+body.dark .card{background:#1e1e1e;color:#f0f0f0;}
+input,select{padding:8px;margin:5px;border:1px solid #ccc;border-radius:10px;width:120px;text-align:center;}
+label{display:block;margin:5px 0;}
 
-      resultEl.innerHTML = numbers.map(n => `<span class="num">${n}</span>`).join(' ');
-      resultEl.classList.remove("show");
-      setTimeout(() => resultEl.classList.add("show"), 50);
-    }
+.buttons-container{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
 
-    function resetAll() {
-      document.getElementById('min').value = '';
-      document.getElementById('max').value = '';
-      document.getElementById('count').value = '';
-      document.getElementById('repeats').checked = false;
-      document.getElementById('sort').value = 'none';
-      const resultEl = document.getElementById('result');
-      resultEl.textContent = '';
-      resultEl.classList.remove("show");
-    }
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#66a6ff;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:background 0.2s,transform 0.1s;
+}
+button:hover{background:#4a8be0;}
+button:active{transform:scale(0.95);}
 
-    function copyResult() {
-      const text = document.getElementById('result').innerText;
-      if (text) {
-        navigator.clipboard.writeText(text);
-        alert("Результат скопирован!");
-      }
-    }
-  </script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 450px;
-    }
-    input, select {
-      padding: 8px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      width: 120px;
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 10px;
-      background: #66a6ff;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin: 5px;
-    }
-    button:hover {
-      background: #4a8be0;
-    }
-    #result {
-      margin-top: 15px;
-      font-size: 20px;
-      font-weight: bold;
-      min-height: 40px;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-    #result.show {
-      opacity: 1;
-    }
-    .num {
-      display: inline-block;
-      margin: 3px;
-      padding: 5px 10px;
-      background: #f0f4ff;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    #datetime {
-      margin-bottom: 15px;
-      font-size: 16px;
-      color: #444;
-    }
-  </style>
+#result{
+  margin-top:15px;
+  font-size:20px;
+  font-weight:bold;
+  min-height:40px;
+  opacity:0;
+  transition:opacity 0.5s ease-in-out;
+}
+#result.show{opacity:1;}
+.num{
+  display:inline-block;
+  margin:3px;
+  padding:5px 10px;
+  background:#f0f4ff;
+  border-radius:8px;
+  font-weight:bold;
+  animation:pop 0.3s ease;
+}
+body.dark .num{background:#2c3e50;color:#fff;}
+@keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+#datetime{margin-bottom:15px;font-size:16px;color:#444;}
+body.dark #datetime{color:#ddd;}
+
+/* Переключатель темы iOS */
+.switch{
+  position: relative;
+  display:inline-block;
+  width:60px;
+  height:34px;
+}
+.switch input{opacity:0;width:0;height:0;}
+.slider{
+  position:absolute;
+  cursor:pointer;
+  top:0;left:0;right:0;bottom:0;
+  background:#ccc;
+  transition:.4s;
+  border-radius:34px;
+}
+.slider:before{
+  position:absolute;
+  content:"";
+  height:26px;width:26px;
+  left:4px;bottom:4px;
+  background:white;
+  transition:.4s;
+  border-radius:50%;
+}
+input:checked + .slider{background:#28a745;}
+input:checked + .slider:before{transform:translateX(26px);}
+</style>
 </head>
-<body onload="updateDateTime()">
-  <div class="card">
-    <h1>🎲 Генератор случайных чисел</h1>
-    <div id="datetime"></div>
-    <div>
-      <input type="number" id="min" placeholder="Минимум">
-      <input type="number" id="max" placeholder="Максимум">
-      <input type="number" id="count" placeholder="Кол-во чисел">
-      <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
-      <label>
-        Сортировка:
-        <select id="sort">
-          <option value="none">Без сортировки</option>
-          <option value="asc">По возрастанию</option>
-          <option value="desc">По убыванию</option>
-        </select>
-      </label>
-    </div>
-    <button onclick="generateNumbers()">Сгенерировать</button>
-    <button onclick="resetAll()">Сбросить</button>
-    <button onclick="copyResult()">📋 Копировать</button>
-    <div id="result"></div>
-  </div>
-</body>
-</html>
+<body>
+<div class="card">
+<h1>🎲 Генератор случайных чисел</h1>
+<div id="datetime"></div>
+<div>
+<input type="number" id="min" placeholder="Минимум">
+<input type="number" id="max" placeholder="Максимум">
+<input type="number" id="count" placeholder="Кол-во чисел">
+<label><input type="checkbox" id="repeats"> Разрешить повторы</label>
+<label>Сортировка:
+<select id="sort">
+<option value="none">Без сортировки</option>
+<option value="asc">По возрастанию</option>
+<option value="desc">По убыванию</option>
+</select>
+</label>
+</div>
 
-</body>
+<div class="buttons-container">
+  <button onclick="generateFromInputs()">Сгенерировать</button>
+  <button onclick="resetAll()">Сбросить</button>
+  <label class="switch">
+    <input type="checkbox" id="themeSwitch" onclick="toggleThemeSwitch(this)">
+    <span class="slider"></span>
+  </label>
+</div>
 
+<div id="result"></div>
+</div>
+</body>
 </html>
