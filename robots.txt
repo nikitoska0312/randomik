@@ -4,11 +4,9 @@ Disallow: /admin/
 Disallow: /cgi-bin/
 Crawl-delay: 1
 
-# Яндекс бот
 User-agent: Yandex
 Allow: /
 Crawl-delay: 1
 Disallow: /admin/
 
-# Указываем полный путь к sitemap
 Sitemap: https://randomik.ru/sitemap.xml
