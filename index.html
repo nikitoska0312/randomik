@@ -1,258 +1,446 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <title>Идеальный генератор случайных чисел!| Тот, что нужен для розыгрышей.</title>
-<meta name="description" content="Сервис случайных решений, генераторов и рандомайзеров. Выбор случайного числа. Быстро, удобно, бесплатно!">
-<meta name="keywords" content="рандомайзер, случайный выбор, генератор случайных чисел, случайное решение, рандом">
 <head>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Генератор случайных чисел</title>
-<script>
-function updateDateTime() {
-  const now = new Date();
-  const dateString = now.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
-  const timeString = now.toLocaleTimeString('ru-RU');
-  document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
-}
-setInterval(updateDateTime, 1000);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Идеальный генератор случайных чисел! | Тот, что нужен для розыгрышей.</title>
+  <meta name="description" content="Сервис случайных решений, генераторов и рандомайзеров. Выбор случайного числа. Быстро, удобно, бесплатно!">
+  <meta name="keywords" content="рандомайзер, случайный выбор, генератор случайных чисел, случайное решение, рандом">
+  
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSIyMCIgZmlsbD0iIzY2YTZmZiIvPjxjaXJjbGUgY3g9IjQ1IiBjeT0iNDUiIHI9IjEyIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjEzNSIgY3k9IjQ1IiByPSIxMiIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI0NSIgY3k9IjEzNSIgcj0iMTIiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMTM1IiBjeT0iMTM1IiByPSIxMiIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjkwIiByPSIxMiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
+  <link rel="icon" type="image/png" sizes="32x32" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSIjNjZhNmZmIi8+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjMiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMjQiIGN5PSI4IiByPSIzIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjgiIGN5PSIyNCIgcj0iMyIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIzIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjMiIGZpbGw9IndoaXRlIi8+PC9zdmc+">
+  <link rel="icon" type="image/png" sizes="16x16" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHJ4PSIyIiBmaWxsPSIjNjZhNmZmIi8+PGNpcmNsZSBjeD0iNCIgY3k9IjQiIHI9IjEuNSIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjQiIHI9IjEuNSIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjEuNSIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjEuNSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI0IiBmaWxsPSIjNjZhNmZmIi8+PGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjMiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMjQiIGN5PSI4IiByPSIzIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjgiIGN5PSIyNCIgcj0iMyIgZmlsbD0id2hpdGUiLz48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIzIiBmaWxsPSJ3aGl0ZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjMiIGZpbGw9IndoaXRlIi8+PC9zdmc+">
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR2VuZXJhdG9yIHNsdWNoYW55eGggY2lzZWwiLCJzaG9ydF9uYW1lIjoiUmFuZG9tIE51bWJlcnMiLCJ0aGVtZV9jb2xvciI6IiM2NmE2ZmYiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzY2YTZmZiJ9">
+  <meta name="theme-color" content="#66a6ff">
 
-function generateNumbers(min, max, count, allowRepeats, sortOrder, animated = true) {
-  const resultEl = document.getElementById('result');
-  if (isNaN(min) || isNaN(max) || isNaN(count) || min > max || count <= 0) {
-    resultEl.textContent = 'Введите корректные значения!';
-    return;
-  }
-  if (count > 1000) {
-    resultEl.textContent = 'Слишком много чисел! Максимум 1000.';
-    return;
-  }
-  const range = max - min + 1;
-  if (!allowRepeats && count > range) {
-    resultEl.textContent = 'Невозможно сгенерировать столько уникальных чисел!';
-    return;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  let numbers = [];
-  if (allowRepeats) {
-    for (let i = 0; i < count; i++) numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
-  } else {
-    const numSet = new Set();
-    while (numSet.size < count) numSet.add(Math.floor(Math.random() * (max - min + 1)) + min);
-    numbers = [...numSet];
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      transition: background 0.3s, color 0.3s;
+      padding: 20px;
+    }
 
-  if (sortOrder === "asc") numbers.sort((a,b)=>a-b);
-  else if (sortOrder === "desc") numbers.sort((a,b)=>b-a);
+    body.dark {
+      background: linear-gradient(135deg, #2c3e50, #000);
+      color: #f0f0f0;
+    }
 
-  resultEl.innerHTML = '';
-  resultEl.classList.remove("show");
-  if (animated) {
-    numbers.forEach((n, i) => setTimeout(()=> {
-      resultEl.innerHTML += `<span class="num">${n}</span> `;
-      if(i===numbers.length-1) resultEl.classList.add("show");
-    }, i*300));
-  } else {
-    resultEl.innerHTML = numbers.map(n=>`<span class="num">${n}</span>`).join(' ');
-    resultEl.classList.add("show");
-  }
-}
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
 
-function generateFromInputs() {
-  const min = parseInt(document.getElementById('min').value);
-  const max = parseInt(document.getElementById('max').value);
-  const count = parseInt(document.getElementById('count').value);
-  const allowRepeats = document.getElementById('repeats').checked;
-  const sortOrder = document.getElementById('sort').value;
-  generateNumbers(min,max,count,allowRepeats,sortOrder,true);
-}
+    body.dark .card {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
 
-function resetAll() {
-  document.getElementById('min').value='';
-  document.getElementById('max').value='';
-  document.getElementById('count').value='';
-  document.getElementById('repeats').checked=false;
-  document.getElementById('sort').value='none';
-  const resultEl=document.getElementById('result');
-  resultEl.textContent='';
-  resultEl.classList.remove("show");
-}
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-function toggleThemeSwitch(checkbox){
-  document.body.classList.toggle("dark", checkbox.checked);
-  localStorage.setItem("theme", checkbox.checked ? "dark" : "light");
-}
+    h1 {
+      margin-bottom: 15px;
+      color: #333;
+      font-size: 28px;
+    }
 
-window.onload=function(){
-  updateDateTime();
-  const savedTheme=localStorage.getItem("theme");
-  const themeSwitch=document.getElementById("themeSwitch");
-  if(savedTheme){
-    if(savedTheme==="dark") document.body.classList.add("dark");
-    themeSwitch.checked = savedTheme==="dark";
-  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-    document.body.classList.add("dark");
-    themeSwitch.checked = true;
-  }
-}
-</script>
-<style>
-body{
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background: linear-gradient(135deg,#89f7fe,#66a6ff);
-  transition: background 0.3s,color 0.3s;
-}
-body.dark{
-  background: linear-gradient(135deg,#2c3e50,#000);
-  color:#f0f0f0;
-}
-.card{
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-  text-align:center;
-  max-width:450px;
-  transition: background 0.3s,color 0.3s;
-}
-body.dark .card{background:#1e1e1e;color:#f0f0f0;}
-input,select{padding:8px;margin:5px;border:1px solid #ccc;border-radius:10px;width:120px;text-align:center;}
-label{display:block;margin:5px 0;}
+    body.dark h1 {
+      color: #f0f0f0;
+    }
 
-.buttons-container{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
+    .dice-icon {
+      font-size: 32px;
+      margin-right: 10px;
+    }
 
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background:#66a6ff;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-  transition:background 0.2s,transform 0.1s;
-}
-button:hover{background:#4a8be0;}
-button:active{transform:scale(0.95);}
+    #datetime {
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #666;
+      background: #f8f9fa;
+      padding: 10px;
+      border-radius: 10px;
+    }
 
-#result{
-  margin-top:15px;
-  font-size:20px;
-  font-weight:bold;
-  min-height:40px;
-  opacity:0;
-  transition:opacity 0.5s ease-in-out;
-}
-#result.show{opacity:1;}
-.num{
-  display:inline-block;
-  margin:3px;
-  padding:5px 10px;
-  background:#f0f4ff;
-  border-radius:8px;
-  font-weight:bold;
-  animation:pop 0.3s ease;
-}
-body.dark .num{background:#2c3e50;color:#fff;}
-@keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
-#datetime{margin-bottom:15px;font-size:16px;color:#444;}
-body.dark #datetime{color:#ddd;}
+    body.dark #datetime {
+      color: #ddd;
+      background: #2a2a2a;
+    }
 
-/* Переключатель темы iOS */
-.switch{
-  position: relative;
-  display:inline-block;
-  width:60px;
-  height:34px;
-}
-.switch input{opacity:0;width:0;height:0;}
-.slider{
-  position:absolute;
-  cursor:pointer;
-  top:0;left:0;right:0;bottom:0;
-  background:#ccc;
-  transition:.4s;
-  border-radius:34px;
-}
-.slider:before{
-  position:absolute;
-  content:"";
-  height:26px;width:26px;
-  left:4px;bottom:4px;
-  background:white;
-  transition:.4s;
-  border-radius:50%;
-}
-input:checked + .slider{background:#28a745;}
-input:checked + .slider:before{transform:translateX(26px);}
-</style>
-  <!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();
-   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    .input-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-   ym(104258221, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/104258221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+    input, select {
+      padding: 12px;
+      margin: 5px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 140px;
+      text-align: center;
+      font-size: 16px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #66a6ff;
+      box-shadow: 0 0 0 2px rgba(102, 166, 255, 0.2);
+    }
+
+    body.dark input, body.dark select {
+      background: #2a2a2a;
+      border-color: #444;
+      color: #f0f0f0;
+    }
+
+    .checkbox-group, .select-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      background: #66a6ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      background: #4a8be0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    #result {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+      min-height: 50px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    #result.show {
+      opacity: 1;
+    }
+
+    .num {
+      display: inline-block;
+      margin: 5px;
+      padding: 8px 15px;
+      background: #f0f4ff;
+      border-radius: 10px;
+      font-weight: bold;
+      animation: pop 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark .num {
+      background: #2c3e50;
+      color: #fff;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Переключатель темы iOS */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: #28a745;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    body.dark .footer {
+      color: #aaa;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .input-group {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      input, select {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="card">
-<h1>🎲 Генератор случайных чисел</h1>
-<div id="datetime"></div>
-<div>
-<input type="number" id="min" placeholder="Минимум">
-<input type="number" id="max" placeholder="Максимум">
-<input type="number" id="count" placeholder="Кол-во чисел">
-<label><input type="checkbox" id="repeats"> Разрешить повторы</label>
-<label>Сортировка:
-<select id="sort">
-<option value="none">Без сортировки</option>
-<option value="asc">По возрастанию</option>
-<option value="desc">По убыванию</option>
-</select>
-</label>
-</div>
+  <div class="card">
+    <h1><span class="dice-icon">🎲</span> Генератор случайных чисел</h1>
+    <div id="datetime"></div>
+    
+    <div class="input-group">
+      <input type="number" id="min" placeholder="Минимум">
+      <input type="number" id="max" placeholder="Максимум">
+      <input type="number" id="count" placeholder="Кол-во чисел">
+    </div>
+    
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
+    </div>
+    
+    <div class="select-group">
+      <label>Сортировка:
+        <select id="sort">
+          <option value="none">Без сортировки</option>
+          <option value="asc">По возрастанию</option>
+          <option value="desc">По убыванию</option>
+        </select>
+      </label>
+    </div>
 
-<div class="buttons-container">
-  <button onclick="generateFromInputs()">Сгенерировать</button>
-  <button onclick="resetAll()">Сбросить</button>
-  <label class="switch">
-    <input type="checkbox" id="themeSwitch" onclick="toggleThemeSwitch(this)">
-    <span class="slider"></span>
-  </label>
-</div>
+    <div class="buttons-container">
+      <button onclick="generateFromInputs()"><span>🎲</span> Сгенерировать</button>
+      <button onclick="resetAll()"><span>🔄</span> Сбросить</button>
+      <label class="switch">
+        <input type="checkbox" id="themeSwitch" onclick="toggleThemeSwitch(this)">
+        <span class="slider"></span>
+      </label>
+    </div>
 
-<div id="result"></div>
-</div>
+    <div id="result"></div>
+    
+    <div class="footer">
+      Идеальный генератор для розыгрышей и случайных решений!
+    </div>
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const dateString = now.toLocaleDateString('ru-RU', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      const timeString = now.toLocaleTimeString('ru-RU');
+      document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
+    }
+    
+    setInterval(updateDateTime, 1000);
+
+    function generateNumbers(min, max, count, allowRepeats, sortOrder, animated = true) {
+      const resultEl = document.getElementById('result');
+      
+      if (isNaN(min) || isNaN(max) || isNaN(count) || min > max || count <= 0) {
+        resultEl.textContent = 'Введите корректные значения!';
+        return;
+      }
+      
+      if (count > 1000) {
+        resultEl.textContent = 'Слишком много чисел! Максимум 1000.';
+        return;
+      }
+      
+      const range = max - min + 1;
+      if (!allowRepeats && count > range) {
+        resultEl.textContent = 'Невозможно сгенерировать столько уникальных чисел!';
+        return;
+      }
+
+      let numbers = [];
+      if (allowRepeats) {
+        for (let i = 0; i < count; i++) {
+          numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+      } else {
+        const numSet = new Set();
+        while (numSet.size < count) {
+          numSet.add(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+        numbers = [...numSet];
+      }
+
+      if (sortOrder === "asc") numbers.sort((a, b) => a - b);
+      else if (sortOrder === "desc") numbers.sort((a, b) => b - a);
+
+      resultEl.innerHTML = '';
+      resultEl.classList.remove("show");
+      
+      if (animated) {
+        numbers.forEach((n, i) => setTimeout(() => {
+          resultEl.innerHTML += `<span class="num">${n}</span>`;
+          if (i === numbers.length - 1) resultEl.classList.add("show");
+        }, i * 100));
+      } else {
+        resultEl.innerHTML = numbers.map(n => `<span class="num">${n}</span>`).join('');
+        resultEl.classList.add("show");
+      }
+    }
+
+    function generateFromInputs() {
+      const min = parseInt(document.getElementById('min').value) || 1;
+      const max = parseInt(document.getElementById('max').value) || 100;
+      const count = parseInt(document.getElementById('count').value) || 1;
+      const allowRepeats = document.getElementById('repeats').checked;
+      const sortOrder = document.getElementById('sort').value;
+      
+      generateNumbers(min, max, count, allowRepeats, sortOrder, true);
+    }
+
+    function resetAll() {
+      document.getElementById('min').value = '';
+      document.getElementById('max').value = '';
+      document.getElementById('count').value = '';
+      document.getElementById('repeats').checked = false;
+      document.getElementById('sort').value = 'none';
+      
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = '';
+      resultEl.classList.remove("show");
+    }
+
+    function toggleThemeSwitch(checkbox) {
+      document.body.classList.toggle("dark", checkbox.checked);
+      localStorage.setItem("theme", checkbox.checked ? "dark" : "light");
+    }
+
+    window.onload = function() {
+      updateDateTime();
+      
+      const savedTheme = localStorage.getItem("theme");
+      const themeSwitch = document.getElementById("themeSwitch");
+      
+      if (savedTheme) {
+        if (savedTheme === "dark") document.body.classList.add("dark");
+        themeSwitch.checked = savedTheme === "dark";
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add("dark");
+        themeSwitch.checked = true;
+      }
+      
+      // Устанавливаем значения по умолчанию
+      document.getElementById('min').value = '1';
+      document.getElementById('max').value = '100';
+      document.getElementById('count').value = '1';
+    }
+  </script>
 </body>
 </html>
-
-
 
