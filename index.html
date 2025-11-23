@@ -1,322 +1,219 @@
-<!-- ЧАСТЬ 1/3 — вставить первой -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Генератор случайных чисел 🎲 | Randomik.ru</title>
-<meta name="description" content="Бесплатный генератор случайных чисел для розыгрышей, лотерей и конкурсов." />
-<meta name="robots" content="index, follow" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор случайных чисел онлайн 🎲 | Randomik.ru</title>
+  <meta name="description" content="Бесплатный генератор случайных чисел для розыгрышей, лотерей, конкурсов.">
+  <meta name="keywords" content="генератор случайных чисел, рандомайзер онлайн, Randomik, числа для розыгрыша">
+  <meta name="author" content="Randomik.ru">
+  <meta name="robots" content="index, follow">
 
-<!-- ========== Яндекс.Метрика (вставлено с вашим ID) ========== -->
-<script type="text/javascript">
-(function(m,e,t,r,i,k,a){
-  m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-  m[i].l=1*new Date();
-  k=e.createElement(t), a=e.getElementsByTagName(t)[0];
-  k.async=1; k.src=r; a.parentNode.insertBefore(k,a);
-})(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){
+       m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0];
+       k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+   })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+   ym(YOUR_METRIKA_ID, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/YOUR_METRIKA_ID" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Яндекс.Метрика -->
 
-ym(104258221, "init", {
-  clickmap:true,
-  trackLinks:true,
-  accurateTrackBounce:true,
-  webvisor:true
-});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/104258221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- ========== /Яндекс.Метрика ========== -->
-
-<style>
-  /* Базовый стиль — адаптивный, аккуратный */
-  :root{
-    --bg1: #89f7fe;
-    --bg2: #66a6ff;
-    --accent: #66a6ff;
-    --card: #ffffff;
-    --text: #222;
-    --muted: #666;
-  }
-  body{margin:0;font-family:Segoe UI, Tahoma, Arial, sans-serif;background:linear-gradient(135deg,var(--bg1),var(--bg2));min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;transition:background .25s,color .25s}
-  body.dark{background:linear-gradient(135deg,#2c3e50,#000);color:#f0f0f0}
-  .card{width:100%;max-width:760px;background:var(--card);border-radius:18px;padding:30px;box-shadow:0 12px 40px rgba(0,0,0,.12);transition:background .25s,color .25s}
-  body.dark .card{background:#161617;color:#eaeaea}
-  .top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-  h1{font-size:22px;margin:0;display:flex;align-items:center;gap:10px;color:var(--text)}
-  .dice-icon{font-size:28px}
-  #datetime{font-weight:600;color:var(--muted);background:#f6f8fb;padding:8px 12px;border-radius:10px}
-  body.dark #datetime{background:#232323;color:#ddd}
-
-  /* inputs area */
-  .grid{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:14px;
-    margin-top:18px;
-    align-items:center;
-  }
-  @media(max-width:720px){ .grid{grid-template-columns:1fr;}}
-  .field{display:flex;flex-direction:column;gap:8px}
-  .field input, .field select{
-    padding:12px;border-radius:10px;border:1px solid #e2e6ee;font-size:15px;text-align:center;
-    background:transparent; transition:box-shadow .15s,border-color .15s;
-  }
-  .field input:focus, .field select:focus{outline:none;box-shadow:0 0 0 4px rgba(102,166,255,.12);border-color:var(--accent)}
-  .controls-row{display:flex;align-items:center;gap:14px;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
-  .left-controls{display:flex;align-items:center;gap:12px}
-  .checkbox-line{display:flex;align-items:center;gap:8px;font-size:15px;cursor:pointer}
-  .switch{position:relative;display:inline-block;width:54px;height:30px}
-  .switch input{opacity:0;width:0;height:0}
-  .slider{position:absolute;inset:0;background:#ccc;border-radius:30px;transition:.3s}
-  .slider:before{content:"";position:absolute;left:4px;top:4px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.3s}
-  .switch input:checked + .slider{background:#28a745}
-  .switch input:checked + .slider:before{transform:translateX(24px)}
-
-  .sort-line{display:flex;align-items:center;gap:8px}
-  .buttons{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
-  .btn{flex:1;min-width:140px;padding:12px 16px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.08);transition:transform .08s,background .12s}
-  .btn:hover{background:#4a8be0;transform:translateY(-1px)}
-  .btn.secondary{background:#f0f2f7;color:#222}
-  .result{margin-top:22px;min-height:80px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px}
-  .numbers{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;font-weight:800;font-size:20px}
-  .num{background:#f0f6ff;padding:8px 14px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.06)}
-  body.dark .num{background:#2a2f35;color:#fff}
-  .history{margin-top:20px;background:#f7f9fc;padding:12px;border-radius:10px;max-height:260px;overflow:auto}
-  body.dark .history{background:#1f1f1f}
-  .hist-entry{padding:10px;border-radius:8px;border-bottom:1px solid rgba(0,0,0,.04);text-align:center}
-  .hist-date{font-weight:800;display:block;margin-bottom:6px}
-  .hist-nums{font-size:16px}
-  .clear-history{margin-top:12px;background:#ff5d5d;color:white;border:0;padding:10px 12px;border-radius:8px;cursor:pointer}
-  .ad-wrap{margin-top:18px;text-align:center}
-
-  footer {margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-</style>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;background:linear-gradient(135deg,#89f7fe,#66a6ff);transition:background 0.3s,color 0.3s;padding:20px;}
+    body.dark{background:linear-gradient(135deg,#2c3e50,#000);color:#f0f0f0;}
+    .card{background:white;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;max-width:500px;width:100%;transition:background 0.3s,color 0.3s,transform 0.3s;}
+    body.dark .card{background:#1e1e1e;color:#f0f0f0;}
+    .card:hover{transform:translateY(-5px);}
+    h1{margin-bottom:15px;color:#333;font-size:28px;}
+    body.dark h1{color:#f0f0f0;}
+    .dice-icon{font-size:32px;margin-right:10px;}
+    #datetime{margin-bottom:20px;font-size:16px;color:#666;background:#f8f9fa;padding:10px;border-radius:10px;text-align:center;font-weight:bold;}
+    body.dark #datetime{color:#ddd;background:#2a2a2a;}
+    .input-group{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:10px;}
+    input, select{padding:12px;margin:5px;border:1px solid #ddd;border-radius:10px;width:140px;text-align:center;font-size:16px;transition:border-color 0.3s,box-shadow 0.3s;}
+    input:focus, select:focus{outline:none;border-color:#66a6ff;box-shadow:0 0 0 2px rgba(102,166,255,0.2);}
+    body.dark input, body.dark select{background:#2a2a2a;border-color:#444;color:#f0f0f0;}
+    label{display:flex;align-items:center;margin:5px 10px;cursor:pointer;}
+    .buttons-container{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:15px;margin-top:15px;}
+    button{padding:12px 25px;border:none;border-radius:10px;background:#66a6ff;color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s,transform 0.1s,box-shadow 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    button:hover{background:#4a8be0;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+    button:active{transform:scale(0.95);}
+    #result{margin-top:25px;font-size:22px;font-weight:bold;min-height:50px;opacity:0;transition:opacity 0.5s ease-in-out;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+    #result.show{opacity:1;}
+    .num{display:inline-block;margin:5px;padding:8px 15px;background:#f0f4ff;border-radius:10px;font-weight:bold;animation:pop 0.3s ease;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    body.dark .num{background:#2c3e50;color:#fff;}
+    @keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .switch{position:relative;display:inline-block;width:60px;height:34px;margin-left:10px;}
+    .switch input{opacity:0;width:0;height:0;}
+    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;transition:.4s;border-radius:34px;}
+    .slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background:white;transition:.4s;border-radius:50%;}
+    input:checked + .slider{background:#28a745;}
+    input:checked + .slider:before{transform:translateX(26px);}
+    #history{margin:15px 0;padding:10px;background:#f8f8f8;border-radius:10px;max-height:200px;overflow-y:auto;text-align:center;}
+    body.dark #history{background:#333;color:#fff;}
+    .history-entry{margin-bottom:10px;}
+    .history-time{font-weight:bold;margin-bottom:5px;display:block;}
+    .clear-history{background:#ff5d5d;margin-top:10px;}
+    .footer{margin-top:20px;text-align:center;font-size:14px;color:#666;}
+    body.dark .footer{color:#aaa;}
+    @media(max-width:480px){.card{padding:20px;}h1{font-size:24px;}.input-group{flex-direction:column;align-items:center;}input,select{width:100%;max-width:200px;}}
+  </style>
 </head>
 <body>
-<div class="card" role="main">
-  <div class="top">
+  <div class="card">
     <h1><span class="dice-icon">🎲</span> Генератор случайных чисел</h1>
-    <div id="datetime" aria-live="polite">—</div>
-  </div>
+    <div id="datetime"></div>
 
-  <!-- ========== ПОЛЯ ВВОДА ========== -->
-  <div class="grid" style="margin-top:18px;">
-    <div class="field">
-      <label for="min">Минимум</label>
-      <input id="min" type="number" inputmode="numeric" placeholder="1" value="1" />
-    </div>
-    <div class="field">
-      <label for="max">Максимум</label>
-      <input id="max" type="number" inputmode="numeric" placeholder="100" value="100" />
+    <div class="input-group">
+      <input type="number" id="min" placeholder="Минимум">
+      <input type="number" id="max" placeholder="Максимум">
+      <input type="number" id="count" placeholder="Кол-во чисел">
     </div>
 
-    <div class="field">
-      <label for="count">Кол-во чисел</label>
-      <input id="count" type="number" inputmode="numeric" placeholder="1" value="1" />
-    </div>
-
-    <div class="field">
-      <label for="sort">Сортировка</label>
-      <select id="sort">
-        <option value="none">Без сортировки</option>
-        <option value="asc">По возрастанию</option>
-        <option value="desc">По убыванию</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- ЧАСТЬ 1/3 КОНЕЦ -->
-    <!-- ЧАСТЬ 2/3 — вставить сразу после Часть 1 -->
-
-  <!-- ========== ПЕРЕКЛЮЧАТЕЛИ (Повторы + Тема) ========== -->
-  <div class="controls-row">
-    <div class="left-controls">
-      <label class="checkbox-line">
-        <input type="checkbox" id="repeats">
-        Разрешить повторы
-      </label>
-    </div>
-
-    <label class="checkbox-line" style="cursor:pointer;">
-      Тёмная тема
-      <label class="switch">
-        <input type="checkbox" id="themeSwitch">
-        <span class="slider"></span>
-      </label>
+    <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch">
+      <span class="slider"></span>
     </label>
-  </div>
 
-  <!-- ========== КНОПКИ ========== -->
-  <div class="buttons">
-    <button class="btn" id="generateBtn">Сгенерировать</button>
-    <button class="btn secondary" id="resetBtn">Сбросить</button>
-  </div>
-
-  <!-- ========== РЕЗУЛЬТАТ ========== -->
-  <div class="result">
-    <div class="numbers" id="result"></div>
-    <button class="btn secondary" id="copyBtn" style="display:none;width:100%;max-width:260px;">Копировать</button>
-  </div>
-
-  <!-- ========== ИСТОРИЯ ========== -->
-  <div class="history" id="historyBox"></div>
-  <button id="clearHistoryBtn" class="clear-history">Очистить историю</button>
-
-  <!-- ========== РЕКЛАМА РСЯ (ваш ID 17797668) ========== -->
-  <div class="ad-wrap">
-    <!-- РСЯ объявление -->
-    <div id="yandex_rtb_17797668"></div>
-    <script>
-      window.yaContextCb = window.yaContextCb || []
-      window.yaContextCb.push(() => {
-        Ya.Context.AdvManager.render({
-          blockId: "R-A-17797668-1",
-          renderTo: "yandex_rtb_17797668",
-          async: true
-        })
-      })
-    </script>
-  </div>
-  <!-- ========== ЗВУК БРОСКА КОСТЕЙ ========== -->
-<audio id="diceSound" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f3ea364a65.mp3?filename=dice-rolling-6998.mp3">
-</audio>
-
-<script>
-// ========== ТЕКУЩАЯ ДАТА И ВРЕМЯ ==========
-function updateDateTime() {
-  const e = document.getElementById("datetime")
-  const now = new Date()
-  const options = {
-    day: "2-digit", month: "2-digit", year: "numeric",
-    hour: "2-digit", minute: "2-digit", second: "2-digit"
-  }
-  e.textContent = now.toLocaleString("ru-RU", options)
-}
-setInterval(updateDateTime, 1000)
-updateDateTime()
-
-// ========== ТЁМНАЯ ТЕМА ==========
-const themeSwitch = document.getElementById("themeSwitch")
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark")
-  themeSwitch.checked = true
-}
-themeSwitch.addEventListener("change", () => {
-  document.body.classList.toggle("dark")
-  localStorage.setItem("theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  )
-})
-
-// ========== ГЕНЕРАЦИЯ ==========
-document.getElementById("generateBtn").onclick = () => {
-  const min = parseInt(document.getElementById("min").value)
-  const max = parseInt(document.getElementById("max").value)
-  const count = parseInt(document.getElementById("count").value)
-  const repeats = document.getElementById("repeats").checked
-  const sortType = document.getElementById("sort").value
-  const resultBox = document.getElementById("result")
-  const copyBtn = document.getElementById("copyBtn")
-  const sound = document.getElementById("diceSound")
-
-  if (isNaN(min) || isNaN(max) || isNaN(count)) {
-    resultBox.textContent = "Введите корректные числа"
-    return
-  }
-  if (min > max) {
-    resultBox.textContent = "Минимум больше максимума"
-    return
-  }
-  if (!repeats && count > (max - min + 1)) {
-    resultBox.textContent = "Без повторов невозможно выбрать столько чисел"
-    return
-  }
-
-  // Звук
-  sound.currentTime = 0
-  sound.play()
-
-  let arr = []
-  if (repeats) {
-    for (let i = 0; i < count; i++)
-      arr.push(Math.floor(Math.random() * (max - min + 1)) + min)
-  } else {
-    let pool = []
-    for (let i = min; i <= max; i++) pool.push(i)
-    for (let i = 0; i < count; i++) {
-      const idx = Math.floor(Math.random() * pool.length)
-      arr.push(pool[idx])
-      pool.splice(idx, 1)
-    }
-  }
-
-  // сортировка
-  if (sortType === "asc") arr.sort((a,b)=>a-b)
-  if (sortType === "desc") arr.sort((a,b)=>b-a)
-
-  resultBox.textContent = arr.join(", ")
-  copyBtn.style.display = "block"
-
-  saveHistory(arr)
-  scrollToCenter("#result")
-}
-
-// ========== СБРОС ==========
-document.getElementById("resetBtn").onclick = () => {
-  document.getElementById("result").textContent = ""
-  document.getElementById("copyBtn").style.display = "none"
-}
-
-// ========== КОПИРОВАНИЕ ==========
-document.getElementById("copyBtn").onclick = () => {
-  navigator.clipboard.writeText(document.getElementById("result").textContent)
-}
-
-// ========== ИСТОРИЯ ==========
-function saveHistory(numbers) {
-  let history = JSON.parse(localStorage.getItem("history") || "[]")
-
-  const now = new Date()
-  const timestamp = now.toLocaleString("ru-RU", {
-    day:"2-digit", month:"2-digit", year:"numeric",
-    hour:"2-digit", minute:"2-digit", second:"2-digit"
-  })
-
-  history.unshift({time: timestamp, nums: numbers})
-
-  localStorage.setItem("history", JSON.stringify(history))
-  renderHistory()
-}
-
-function renderHistory() {
-  const box = document.getElementById("historyBox")
-  let history = JSON.parse(localStorage.getItem("history") || "[]")
-
-  if (!history.length) {
-    box.innerHTML = "<div class='history-empty'>История пуста</div>"
-    return
-  }
-
-  box.innerHTML = history.map(h => `
-    <div class="history-item">
-      <div class="history-time">${h.time}</div>
-      <div class="history-nums">${h.nums.join(", ")}</div>
+    <div class="select-group">
+      <label>Сортировка:
+        <select id="sort">
+          <option value="none">Без сортировки</option>
+          <option value="asc">По возрастанию</option>
+          <option value="desc">По убыванию</option>
+        </select>
+      </label>
     </div>
-  `).join("")
-}
-renderHistory()
 
-document.getElementById("clearHistoryBtn").onclick = () => {
-  localStorage.removeItem("history")
-  renderHistory()
-}
+    <div class="buttons-container">
+      <button id="generateBtn">🎲 Сгенерировать</button>
+      <button id="resetBtn">🔄 Сбросить</button>
+      <button id="copyBtn">📋 Копировать</button>
+    </div>
 
-// ========== АВТОПРОКРУТКА К ЦЕНТРУ ЭКРАНА ==========
-function scrollToCenter(selector) {
-  const element = document.querySelector(selector)
-  const y = element.getBoundingClientRect().top + window.scrollY
-  const offset = window.innerHeight / 2 - element.clientHeight
-  window.scrollTo({ top: y - offset, behavior: "smooth" })
-}
-</script>
+    <div id="result"></div>
+
+    <h3>История генераций</h3>
+    <div id="history"></div>
+    <button id="clearHistory" class="clear-history">Очистить историю</button>
+
+    <!-- Рекламный блок РСЯ -->
+    <div class="ad-block" style="margin-top:20px;text-align:center;">
+      <script type="text/javascript">
+        (function(w,d,n,s,t){
+          w[n]=w[n]||[];
+          w[n].push(function(){Ya.Context.AdvManager.render({blockId:"R-A-XXXXXX-1", renderTo:"ad-container"});});
+          t=d.getElementsByTagName("script")[0];
+          s=d.createElement("script");
+          s.type="text/javascript";
+          s.src="//an.yandex.ru/system/context.js";
+          s.async=true;
+          t.parentNode.insertBefore(s,t);
+        })(window,document,"yandexContextAsyncCallbacks");
+      </script>
+      <div id="ad-container" style="display:inline-block;width:300px;height:250px;"></div>
+    </div>
+
+    <div class="footer">
+      Randomik.ru - бесплатный генератор случайных чисел для честных розыгрышей!
+    </div>
+  </div>
+
+  <audio id="dice-sound" src="dice-roll.mp3"></audio>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const dateString = now.toLocaleDateString('ru-RU',{year:'numeric',month:'long',day:'numeric'});
+      const timeString = now.toLocaleTimeString('ru-RU');
+      document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
+    }
+    setInterval(updateDateTime,1000);
+
+    const resultDiv = document.getElementById('result');
+    const historyDiv = document.getElementById('history');
+    const diceSound = document.getElementById('dice-sound');
+
+    document.getElementById('generateBtn').addEventListener('click',generateFromInputs);
+    document.getElementById('resetBtn').addEventListener('click',resetAll);
+    document.getElementById('copyBtn').addEventListener('click',()=>{navigator.clipboard.writeText(resultDiv.textContent); alert('Результат скопирован!');});
+    document.getElementById('clearHistory').addEventListener('click',()=>{localStorage.removeItem('randomikHistory');updateHistory();});
+
+    function generateNumbers(min,max,count,allowRepeats,sortOrder,animated=true){
+      if(isNaN(min)||isNaN(max)||isNaN(count)||min>max||count<=0){resultDiv.textContent='Введите корректные значения!';return;}
+      if(count>1000){resultDiv.textContent='Слишком много чисел! Максимум 1000.';return;}
+      const range=max-min+1;
+      if(!allowRepeats&&count>range){resultDiv.textContent='Невозможно сгенерировать столько уникальных чисел!';return;}
+
+      let numbers=[];
+      if(allowRepeats){for(let i=0;i<count;i++){numbers.push(Math.floor(Math.random()*(max-min+1))+min);}}
+      else{const s=new Set();while(s.size<count)s.add(Math.floor(Math.random()*(max-min+1))+min);numbers=[...s];}
+
+      if(sortOrder==='asc')numbers.sort((a,b)=>a-b);
+      if(sortOrder==='desc')numbers.sort((a,b)=>b-a);
+
+      resultDiv.innerHTML='';resultDiv.classList.remove('show');
+      diceSound.play();
+
+      if(animated){
+        numbers.forEach((n,i)=>setTimeout(()=>{resultDiv.innerHTML+=`<span class="num">${n}</span>`;if(i===numbers.length-1){resultDiv.classList.add('show');window.scrollTo({top:resultDiv.offsetTop- window.innerHeight/2,behavior:"smooth"});}},i*100));
+      } else {resultDiv.innerHTML=numbers.map(n=>`<span class="num">${n}</span>`).join('');resultDiv.classList.add('show');}
+
+      saveToHistory(numbers);
+    }
+
+    function generateFromInputs(){
+      const min=parseInt(document.getElementById('min').value)||1;
+      const max=parseInt(document.getElementById('max').value)||100;
+      const count=parseInt(document.getElementById('count').value)||1;
+      const allowRepeats=document.getElementById('repeats').checked;
+      const sortOrder=document.getElementById('sort').value;
+      generateNumbers(min,max,count,allowRepeats,sortOrder,true);
+    }
+
+    function resetAll(){
+      document.getElementById('min').value='';document.getElementById('max').value='';document.getElementById('count').value='';
+      document.getElementById('repeats').checked=false;document.getElementById('sort').value='none';
+      resultDiv.textContent='';resultDiv.classList.remove('show');
+    }
+
+    function saveToHistory(numbers){
+      const hist=JSON.parse(localStorage.getItem('randomikHistory')||'[]');
+      const now=new Date();const entry={time:now.toLocaleString('ru-RU'),numbers};
+      hist.unshift(entry);localStorage.setItem('randomikHistory',JSON.stringify(hist.slice(0,50)));
+      updateHistory();
+    }
+
+    function updateHistory(){
+      const hist=JSON.parse(localStorage.getItem('randomikHistory')||'[]');
+      if(hist.length===0){historyDiv.innerHTML='Пока пусто';return;}
+      historyDiv.innerHTML='';
+      hist.forEach(h=>{
+        const div=document.createElement('div');div.className='history-entry';
+        div.innerHTML=`<span class="history-time">${h.time}</span><span>${h.numbers.join(', ')}</span>`;
+        historyDiv.appendChild(div);
+      });
+    }
+    updateHistory();
+
+    const themeSwitch=document.getElementById('themeSwitch');
+    themeSwitch.addEventListener('change',()=>{document.body.classList.toggle('dark');localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
+    window.onload=function(){
+      updateDateTime();
+      const savedTheme=localStorage.getItem('theme');if(savedTheme==='dark'){document.body.classList.add('dark');themeSwitch.checked=true;}
+      document.getElementById('min').value='1';document.getElementById('max').value='100';document.getElementById('count').value='1';
+    }
+  </script>
+</body>
+</html>
