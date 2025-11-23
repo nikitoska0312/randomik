@@ -3,35 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Генератор случайных чисел онлайн 🎲 | Randomik.ru</title>
+  <title>Генератор случайных чисел онлайн | Randomik.ru</title>
   <meta name="description" content="Бесплатный генератор случайных чисел для розыгрышей, лотерей, конкурсов.">
   <meta name="keywords" content="генератор случайных чисел, рандомайзер онлайн, Randomik, числа для розыгрыша">
   <meta name="author" content="Randomik.ru">
   <meta name="robots" content="index, follow">
 
+  <!-- ИКОНКА-КУБИК встроена прямо в код (работает везде: вкладка, «Поделиться», «На главный экран») -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='8' width='48' height='48' rx='12' fill='%234e7dff'/%3E%3Ccircle cx='18' cy='18' r='6' fill='white'/%3E%3Ccircle cx='44' cy='18' r='6' fill='white'/%3E%3Ccircle cx='18' cy='44' r='6' fill='white'/%3E%3Ccircle cx='44' cy='44' r='6' fill='white'/%3E%3Ccircle cx='31' cy='31' r='6' fill='white'/%3E%3C/svg%3E" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='8' y='8' width='48' height='48' rx='12' fill='%234e7dff'/%3E%3Ccircle cx='18' cy='18' r='6' fill='white'/%3E%3Ccircle cx='44' cy='18' r='6' fill='white'/%3E%3Ccircle cx='18' cy='44' r='6' fill='white'/%3E%3Ccircle cx='44' cy='44' r='6' fill='white'/%3E%3Ccircle cx='31' cy='31' r='6' fill='white'/%3E%3C/svg%3E">
+
   <!-- Яндекс.Метрика -->
-  <script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){
-       m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0];
-       k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
-   })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(104258221, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
+  <script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0];k.async=1;k.src=r;a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+   ym(104258221, "init", {clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/104258221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <!-- /Яндекс.Метрика -->
 
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Segoe UI',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;margin:0;background:linear-gradient(135deg,#89f7fe,#66a6ff);transition:background 0.3s,color 0.3s;padding:20px;}
     body.dark{background:linear-gradient(135deg,#2c3e50,#000);color:#f0f0f0;}
-    .card{background:white;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;max-width:500px;width:100%;transition:background 0.3s,color 0.3s,transform 0.3s;}
+    .card{background:white;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.15);text-align:center;max-width:500px;width:100%;transition:all 0.3s;}
     body.dark .card{background:#1e1e1e;color:#f0f0f0;}
     .card:hover{transform:translateY(-5px);}
     h1{margin-bottom:15px;color:#333;font-size:28px;}
@@ -40,181 +35,197 @@
     #datetime{margin-bottom:20px;font-size:16px;color:#666;background:#f8f9fa;padding:10px;border-radius:10px;text-align:center;font-weight:bold;}
     body.dark #datetime{color:#ddd;background:#2a2a2a;}
     .input-group{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:10px;}
-    input, select{padding:12px;margin:5px;border:1px solid #ddd;border-radius:10px;width:140px;text-align:center;font-size:16px;transition:border-color 0.3s,box-shadow 0.3s;}
+    input, select{padding:12px;margin:5px;border:1px solid #ddd;border-radius:10px;width:140px;text-align:center;font-size:16px;transition:all 0.3s;}
     input:focus, select:focus{outline:none;border-color:#66a6ff;box-shadow:0 0 0 2px rgba(102,166,255,0.2);}
     body.dark input, body.dark select{background:#2a2a2a;border-color:#444;color:#f0f0f0;}
-    label{display:flex;align-items:center;margin:5px 10px;cursor:pointer;}
-    .buttons-container{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:15px;margin-top:15px;}
-    button{padding:12px 25px;border:none;border-radius:10px;background:#66a6ff;color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:background 0.2s,transform 0.1s,box-shadow 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-    button:hover{background:#4a8be0;box-shadow:0 4px 8px rgba(0,0,0,0.1);}
+    label{display:flex;align-items:center;margin:10px;cursor:pointer;}
+    .buttons-container{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-top:15px;}
+    button{padding:12px 25px;border:none;border-radius:10px;background:#66a6ff;color:white;font-size:16px;font-weight:bold;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+    button:hover{background:#4a8be0;box-shadow:0 4px 12px rgba(0,0,0,0.2);}
     button:active{transform:scale(0.95);}
-    #result{margin-top:25px;font-size:22px;font-weight:bold;min-height:50px;opacity:0;transition:opacity 0.5s ease-in-out;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+    #result{margin-top:25px;font-size:22px;font-weight:bold;min-height:50px;opacity:0;transition:opacity 0.5s;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
     #result.show{opacity:1;}
-    .num{display:inline-block;margin:5px;padding:8px 15px;background:#f0f4ff;border-radius:10px;font-weight:bold;animation:pop 0.3s ease;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    .num{display:inline-block;padding:10px 16px;background:#f0f4ff;border-radius:12px;font-weight:bold;animation:pop 0.4s ease;box-shadow:0 3px 8px rgba(0,0,0,0.1);}
     body.dark .num{background:#2c3e50;color:#fff;}
-    @keyframes pop{from{transform:scale(0.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+    @keyframes pop{from{transform:scale(0) rotate(-180deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
     .switch{position:relative;display:inline-block;width:60px;height:34px;margin-left:10px;}
     .switch input{opacity:0;width:0;height:0;}
     .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;transition:.4s;border-radius:34px;}
     .slider:before{position:absolute;content:"";height:26px;width:26px;left:4px;bottom:4px;background:white;transition:.4s;border-radius:50%;}
     input:checked + .slider{background:#28a745;}
     input:checked + .slider:before{transform:translateX(26px);}
-    #history{margin:15px 0;padding:10px;background:#f8f8f8;border-radius:10px;max-height:200px;overflow-y:auto;text-align:center;}
+    #history{margin:20px 0;padding:15px;background:#f8f8f8;border-radius:12px;max-height:250px;overflow-y:auto;}
     body.dark #history{background:#333;color:#fff;}
-    .history-entry{margin-bottom:10px;}
-    .history-time{font-weight:bold;margin-bottom:5px;display:block;}
+    .history-entry{margin:12px 0;padding-bottom:8px;border-bottom:1px solid #eee;}
+    body.dark .history-entry{border-color:#444;}
+    .history-time{font-weight:bold;color:#4e7dff;}
     .clear-history{background:#ff5d5d;margin-top:10px;}
-    .footer{margin-top:20px;text-align:center;font-size:14px;color:#666;}
+    .footer{margin-top:30px;font-size:14px;color:#666;}
     body.dark .footer{color:#aaa;}
-    @media(max-width:480px){.card{padding:20px;}h1{font-size:24px;}.input-group{flex-direction:column;align-items:center;}input,select{width:100%;max-width:200px;}}
+    @media(max-width:480px){
+      .card{padding:20px;}h1{font-size:24px;}
+      .input-group{flex-direction:column;align-items:center;}
+      input,select{width:100%;max-width:300px;}
+      .buttons-container{gap:10px;}
+    }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1><span class="dice-icon">🎲</span> Генератор случайных чисел</h1>
+    <h1><span class="dice-icon">Кубик</span> Генератор случайных чисел</h1>
     <div id="datetime"></div>
 
     <div class="input-group">
-      <input type="number" id="min" placeholder="Минимум">
-      <input type="number" id="max" placeholder="Максимум">
-      <input type="number" id="count" placeholder="Кол-во чисел">
+      <input type="number" id="min" placeholder="Минимум" value="1">
+      <input type="number" id="max" placeholder="Максимум" value="100">
+      <input type="number" id="count" placeholder="Кол-во чисел" value="1">
     </div>
 
-    <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
-    <label class="switch">
-      <input type="checkbox" id="themeSwitch">
-      <span class="slider"></span>
-    </label>
-
-    <div class="select-group">
-      <label>Сортировка:
-        <select id="sort">
-          <option value="none">Без сортировки</option>
-          <option value="asc">По возрастанию</option>
-          <option value="desc">По убыванию</option>
-        </select>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <label><input type="checkbox" id="repeats"> Разрешить повторы</label>
+      
+      <label class="switch">
+        <input type="checkbox" id="themeSwitch">
+        <span class="slider"></span> Тёмная тема
       </label>
     </div>
 
+    <label style="display:block;margin:15px 0;">
+      Сортировка:
+      <select id="sort">
+        <option value="none">Без сортировки</option>
+        <option value="asc">По возрастанию</option>
+        <option value="desc">По убыванию</option>
+      </select>
+    </label>
+
     <div class="buttons-container">
-      <button id="generateBtn">🎲 Сгенерировать</button>
-      <button id="resetBtn">🔄 Сбросить</button>
-      <button id="copyBtn">📋 Копировать</button>
+      <button id="generateBtn">Сгенерировать</button>
+      <button id="resetBtn">Сбросить</button>
+      <button id="copyBtn">Копировать</button>
     </div>
 
     <div id="result"></div>
 
-    <h3>История генераций</h3>
-    <div id="history"></div>
+    <h3 style="margin:25px 0 10px;">История генераций</h3>
+    <div id="history">Загрузка истории...</div>
     <button id="clearHistory" class="clear-history">Очистить историю</button>
 
-    <!-- Рекламный блок РСЯ -->
-    <div class="ad-block" style="margin-top:20px;text-align:center;">
-      <script type="text/javascript">
-        (function(w,d,n,s,t){
-          w[n]=w[n]||[];
-          w[n].push(function(){Ya.Context.AdvManager.render({blockId:"R-A-17797668-1", renderTo:"ad-container"});});
-          t=d.getElementsByTagName("script")[0];
-          s=d.createElement("script");
-          s.type="text/javascript";
-          s.src="//an.yandex.ru/system/context.js";
-          s.async=true;
-          t.parentNode.insertBefore(s,t);
-        })(window,document,"yandexContextAsyncCallbacks");
-      </script>
-      <div id="ad-container" style="display:inline-block;width:300px;height:250px;"></div>
+    <!-- Реклама РСЯ (работает на любом хостинге) -->
+    <div style="margin:30px 0;text-align:center;">
+      <script async src="https://yandex.ru/ads/system/context.js"></script>
+      <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-XXXX"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
     <div class="footer">
-      Randomik.ru - бесплатный генератор случайных чисел для честных розыгрышей!
+      Randomik.ru © 2025 — честный и бесплатный рандомайзер для розыгрышей
     </div>
   </div>
 
-  <audio id="dice-sound" src="dice-roll.mp3"></audio>
+  <audio id="dice-sound" preload="auto">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
+    // Дата и время
     function updateDateTime() {
       const now = new Date();
-      const dateString = now.toLocaleDateString('ru-RU',{year:'numeric',month:'long',day:'numeric'});
-      const timeString = now.toLocaleTimeString('ru-RU');
-      document.getElementById('datetime').textContent = `📅 ${dateString}, ⏰ ${timeString}`;
+      const date = now.toLocaleDateString('ru-RU', {year:'numeric', month:'long', day:'numeric'});
+      const time = now.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+      document.getElementById('datetime').innerHTML = `Дата \( {date}  Время \){time}`;
     }
-    setInterval(updateDateTime,1000);
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
 
     const resultDiv = document.getElementById('result');
     const historyDiv = document.getElementById('history');
-    const diceSound = document.getElementById('dice-sound');
+    const sound = document.getElementById('dice-sound');
 
-    document.getElementById('generateBtn').addEventListener('click',generateFromInputs);
-    document.getElementById('resetBtn').addEventListener('click',resetAll);
-    document.getElementById('copyBtn').addEventListener('click',()=>{navigator.clipboard.writeText(resultDiv.textContent); alert('Результат скопирован!');});
-    document.getElementById('clearHistory').addEventListener('click',()=>{localStorage.removeItem('randomikHistory');updateHistory();});
+    // Генерация
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      const min = parseInt(document.getElementById('min').value) || 1;
+      const max = parseInt(document.getElementById('max').value) || 100;
+      const count = parseInt(document.getElementById('count').value) || 1;
+      const repeats = document.getElementById('repeats').checked;
+      const sort = document.getElementById('sort').value;
 
-    function generateNumbers(min,max,count,allowRepeats,sortOrder,animated=true){
-      if(isNaN(min)||isNaN(max)||isNaN(count)||min>max||count<=0){resultDiv.textContent='Введите корректные значения!';return;}
-      if(count>1000){resultDiv.textContent='Слишком много чисел! Максимум 1000.';return;}
-      const range=max-min+1;
-      if(!allowRepeats&&count>range){resultDiv.textContent='Невозможно сгенерировать столько уникальных чисел!';return;}
+      if (min > max || count < 1 || count > 1000) { resultDiv.textContent = 'Ошибка в данных!'; return; }
 
-      let numbers=[];
-      if(allowRepeats){for(let i=0;i<count;i++){numbers.push(Math.floor(Math.random()*(max-min+1))+min);}}
-      else{const s=new Set();while(s.size<count)s.add(Math.floor(Math.random()*(max-min+1))+min);numbers=[...s];}
+      let numbers = [];
+      if (repeats) {
+        for(let i = 0; i < count; i++) numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+      } else {
+        const set = new Set();
+        while(set.size < count && set.size < max - min + 1) {
+          set.add(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+        numbers = Array.from(set);
+      }
 
-      if(sortOrder==='asc')numbers.sort((a,b)=>a-b);
-      if(sortOrder==='desc')numbers.sort((a,b)=>b-a);
+      if (sort === 'asc') numbers.sort((a,b) => a-b);
+      if (sort === 'desc') numbers.sort((a,b) => b-a);
 
-      resultDiv.innerHTML='';resultDiv.classList.remove('show');
-      diceSound.play();
+      resultDiv.innerHTML = ''; resultDiv.classList.remove('show');
+      sound.currentTime = 0; sound.play();
 
-      if(animated){
-        numbers.forEach((n,i)=>setTimeout(()=>{resultDiv.innerHTML+=`<span class="num">${n}</span>`;if(i===numbers.length-1){resultDiv.classList.add('show');window.scrollTo({top:resultDiv.offsetTop- window.innerHeight/2,behavior:"smooth"});}},i*100));
-      } else {resultDiv.innerHTML=numbers.map(n=>`<span class="num">${n}</span>`).join('');resultDiv.classList.add('show');}
-
-      saveToHistory(numbers);
-    }
-
-    function generateFromInputs(){
-      const min=parseInt(document.getElementById('min').value)||1;
-      const max=parseInt(document.getElementById('max').value)||100;
-      const count=parseInt(document.getElementById('count').value)||1;
-      const allowRepeats=document.getElementById('repeats').checked;
-      const sortOrder=document.getElementById('sort').value;
-      generateNumbers(min,max,count,allowRepeats,sortOrder,true);
-    }
-
-    function resetAll(){
-      document.getElementById('min').value='';document.getElementById('max').value='';document.getElementById('count').value='';
-      document.getElementById('repeats').checked=false;document.getElementById('sort').value='none';
-      resultDiv.textContent='';resultDiv.classList.remove('show');
-    }
-
-    function saveToHistory(numbers){
-      const hist=JSON.parse(localStorage.getItem('randomikHistory')||'[]');
-      const now=new Date();const entry={time:now.toLocaleString('ru-RU'),numbers};
-      hist.unshift(entry);localStorage.setItem('randomikHistory',JSON.stringify(hist.slice(0,50)));
-      updateHistory();
-    }
-
-    function updateHistory(){
-      const hist=JSON.parse(localStorage.getItem('randomikHistory')||'[]');
-      if(hist.length===0){historyDiv.innerHTML='Пока пусто';return;}
-      historyDiv.innerHTML='';
-      hist.forEach(h=>{
-        const div=document.createElement('div');div.className='history-entry';
-        div.innerHTML=`<span class="history-time">${h.time}</span><span>${h.numbers.join(', ')}</span>`;
-        historyDiv.appendChild(div);
+      numbers.forEach((n, i) => {
+        setTimeout(() => {
+          const span = document.createElement('span');
+          span.className = 'num';
+          span.textContent = n;
+          resultDiv.appendChild(span);
+          if (i === numbers.length - 1) resultDiv.classList.add('show');
+        }, i * 80);
       });
+
+      // Сохранение в историю
+      const entry = {time: new Date().toLocaleString('ru-RU'), numbers};
+      let hist = JSON.parse(localStorage.getItem('randomikHistory') || '[]');
+      hist.unshift(entry);
+      localStorage.setItem('randomikHistory', JSON.stringify(hist.slice(0, 50)));
+      updateHistory();
+    });
+
+    // Остальные кнопки
+    document.getElementById('resetBtn').onclick = () => {
+      document.getElementById('min').value = '1';
+      document.getElementById('max').value = '100';
+      document.getElementById('count').value = '1';
+      document.getElementById('repeats').checked = false;
+      document.getElementById('sort').value = 'none';
+      resultDiv.innerHTML = ''; resultDiv.classList.remove('show');
+    };
+
+    document.getElementById('copyBtn').onclick = () => {
+      const text = resultDiv.textContent || 'Нечего копировать';
+      navigator.clipboard.writeText(text).then(() => alert('Скопировано в буфер обмена!'));
+    };
+
+    document.getElementById('clearHistory').onclick = () => {
+      localStorage.removeItem('randomikHistory');
+      updateHistory();
+    };
+
+    function updateHistory() {
+      const hist = JSON.parse(localStorage.getItem('randomikHistory') || '[]');
+      if (hist.length === 0) { historyDiv.innerHTML = '<i>История пуста</i>'; return; }
+      historyDiv.innerHTML = hist.map(h => 
+        `<div class="history-entry"><span class="history-time">\( {h.time}</span><br> \){h.numbers.join(', ')}</div>`
+      ).join('');
     }
     updateHistory();
 
-    const themeSwitch=document.getElementById('themeSwitch');
-    themeSwitch.addEventListener('change',()=>{document.body.classList.toggle('dark');localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');});
-    window.onload=function(){
-      updateDateTime();
-      const savedTheme=localStorage.getItem('theme');if(savedTheme==='dark'){document.body.classList.add('dark');themeSwitch.checked=true;}
-      document.getElementById('min').value='1';document.getElementById('max').value='100';document.getElementById('count').value='1';
+    // Тёмная тема
+    const themeSwitch = document.getElementById('themeSwitch');
+    themeSwitch.addEventListener('change', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      themeSwitch.checked = true;
     }
   </script>
 </body>
 </html>
-
