@@ -131,8 +131,7 @@ body.dark .footer { color:#aaa; }
 <div class="footer">Randomik.ru - бесплатный генератор случайных чисел для честных розыгрышей!</div>
 </div>
 
-<!-- Встроенный звук костей -->
-<audio id="dice-sound" src="data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAA... (замени на реальный Base64 mp3) ..." preload="auto"></audio>
+<audio id="dice-sound" src="dice.mp3"></audio>
 
 <script>
 // Дата и время
@@ -190,13 +189,13 @@ function generateFromInputs(){
   const max=parseInt(document.getElementById('max').value)||100;
   const count=parseInt(document.getElementById('count').value)||1;
   const allowRepeats=document.getElementById('repeats').checked;
-  const sortOrder='none';
+  const sortOrder=document.getElementById('sort').value;
   generateNumbers(min,max,count,allowRepeats,sortOrder,true);
 }
 
 function resetAll(){
   document.getElementById('min').value=''; document.getElementById('max').value=''; document.getElementById('count').value='';
-  document.getElementById('repeats').checked=false; 
+  document.getElementById('repeats').checked=false; document.getElementById('sort').value='none';
   const resultEl=document.getElementById('result'); resultEl.textContent=''; resultEl.classList.remove('show');
 }
 
