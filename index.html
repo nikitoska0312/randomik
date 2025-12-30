@@ -4,27 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Генератор случайных чисел 🎲</title>
+
 <meta name="description" content="Бесплатный генератор случайных чисел для розыгрышей, лотерей, конкурсов.">
-  <meta name="keywords" content="генератор случайных чисел, рандомайзер онлайн, Randomik, числа для розыгрыша">
-  <meta name="author" content="Randomik.ru">
-  <meta name="robots" content="index, follow">
-  <!-- Яндекс.Метрика -->
-  <script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){
-       m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-       m[i].l=1*new Date();
-       k=e.createElement(t),a=e.getElementsByTagName(t)[0];
-       k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
-   })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym(104258221, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-  </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/104258221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-  <!-- /Яндекс.Метрика -->
+<meta name="keywords" content="генератор случайных чисел, рандомайзер онлайн, Randomik, числа для розыгрыша">
+<meta name="author" content="Randomik.ru">
+<meta name="robots" content="index, follow">
+
+<!-- Яндекс.Метрика -->
+<script type="text/javascript">
+(function(m,e,t,r,i,k,a){
+  m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0];
+  k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+})(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ym(104258221, "init", {
+  clickmap:true,
+  trackLinks:true,
+  accurateTrackBounce:true,
+  webvisor:true
+});
+</script>
+<noscript>
+  <div><img src="https://mc.yandex.ru/watch/104258221" style="position:absolute; left:-9999px;" alt=""></div>
+</noscript>
+<!-- /Яндекс.Метрика -->
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
@@ -41,7 +46,6 @@ body.dark{
   background:linear-gradient(135deg,#2c3e50,#000);
   color:#fff;
 }
-
 .card{
   background:#fff;
   padding:30px;
@@ -55,7 +59,6 @@ body.dark .card{background:#1e1e1e;}
 
 h1{margin-bottom:10px;}
 
-/* ===== ДАТА И ВРЕМЯ (КАК В ПЕРВОЙ ВЕРСИИ) ===== */
 #datetime{
   margin-bottom:20px;
   font-size:16px;
@@ -66,8 +69,8 @@ h1{margin-bottom:10px;}
   font-weight:bold;
 }
 body.dark #datetime{
-  color:#ddd;
   background:#2a2a2a;
+  color:#ddd;
 }
 
 input,select{
@@ -79,7 +82,6 @@ input,select{
   max-width:240px;
   text-align:center;
 }
-
 body.dark input,
 body.dark select{
   background:#2a2a2a;
@@ -87,7 +89,6 @@ body.dark select{
   border:1px solid #444;
 }
 
-/* чекбоксы */
 .options{
   display:flex;
   flex-direction:column;
@@ -103,7 +104,6 @@ body.dark select{
   white-space:nowrap;
 }
 
-/* кнопки */
 .controls{
   margin-top:15px;
   display:flex;
@@ -192,7 +192,6 @@ body.dark #history{background:#333;}
 .switch input:checked + .slider{background:#28a745;}
 .switch input:checked + .slider:before{transform:translateX(24px);}
 
-/* whatsapp */
 .whatsapp-invite{
   margin-top:25px;
   padding-top:15px;
@@ -258,9 +257,19 @@ body.dark .footer{color:#aaa;}
 
 <div id="result"></div>
 
-<h3>История</h3>
-<div id="history">Пока пусто</div>
-<button class="clear-history" id="clearHistory">Очистить историю</button>
+<!-- ПЕРЕКЛЮЧАТЕЛЬ ИСТОРИИ -->
+<div class="options">
+  <div class="option">
+    <input type="checkbox" id="toggleHistory" checked>
+    <label>Показывать историю</label>
+  </div>
+</div>
+
+<div id="historyBlock">
+  <h3>История</h3>
+  <div id="history">Пока пусто</div>
+  <button class="clear-history" id="clearHistory">Очистить историю</button>
+</div>
 
 <div class="whatsapp-invite">
   <p>Присоединяйтесь к группе WhatsApp:</p>
@@ -277,35 +286,40 @@ Randomik.ru — бесплатный генератор случайных чи�
 <script>
 const qs=id=>document.getElementById(id);
 
-/* ===== ДАТА И ВРЕМЯ ===== */
+/* дата и время */
 function updateDateTime(){
   const n=new Date();
-  const date=n.toLocaleDateString('ru-RU',{year:'numeric',month:'long',day:'numeric'});
-  const time=n.toLocaleTimeString('ru-RU');
-  qs('datetime').textContent=`📅 ${date}, ⏰ ${time}`;
+  qs('datetime').textContent=
+    `📅 ${n.toLocaleDateString('ru-RU',{year:'numeric',month:'long',day:'numeric'})}, ⏰ ${n.toLocaleTimeString('ru-RU')}`;
 }
 setInterval(updateDateTime,1000);
 updateDateTime();
 
-/* ===== КНОПКИ ===== */
+/* генерация */
 qs('generate').onclick=generate;
 qs('reset').onclick=resetAll;
 qs('copy').onclick=copyResult;
-qs('clearHistory').onclick=()=>{localStorage.removeItem('history');qs('history').textContent='Пока пусто';};
+qs('clearHistory').onclick=()=>{localStorage.removeItem('history');updateHistory();};
 
 qs('themeSwitch').onchange=()=>{
   document.body.classList.toggle('dark');
   localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
 };
 
-/* ===== ГЕНЕРАЦИЯ ===== */
+/* показать / скрыть историю */
+qs('toggleHistory').onchange=()=>{
+  const show=qs('toggleHistory').checked;
+  qs('historyBlock').style.display=show?'block':'none';
+  localStorage.setItem('showHistory',show?'1':'0');
+};
+
 function generate(){
   const min=+qs('min').value;
   const max=+qs('max').value;
   const count=+qs('count').value;
   if(min>max||count<=0)return;
 
-  const exclude=qs('exclude').value.split(',').map(n=>+n).filter(n=>!isNaN(n));
+  const exclude=qs('exclude').value.split(',').map(Number).filter(n=>!isNaN(n));
   let pool=[];
   for(let i=min;i<=max;i++){
     if(exclude.includes(i))continue;
@@ -326,7 +340,6 @@ function generate(){
   saveHistory(nums);
 }
 
-/* ===== РЕНДЕР ===== */
 function render(arr){
   const r=qs('result');
   r.innerHTML='';
@@ -338,16 +351,12 @@ function render(arr){
   },i*120));
 }
 
-/* ===== КОПИРОВАНИЕ (ИСПРАВЛЕНО) ===== */
 function copyResult(){
   const nums=[...document.querySelectorAll('#result .num')].map(e=>e.textContent);
-  if(!nums.length){alert('Нет чисел для копирования');return;}
-  navigator.clipboard.writeText(nums.join(', '))
-    .then(()=>alert('Числа скопированы'))
-    .catch(()=>alert('Ошибка копирования'));
+  if(!nums.length)return alert('Нет чисел');
+  navigator.clipboard.writeText(nums.join(', ')).then(()=>alert('Скопировано'));
 }
 
-/* ===== СБРОС ===== */
 function resetAll(){
   ['min','max','count','exclude'].forEach(id=>qs(id).value='');
   ['excludeEven','excludeOdd','repeats'].forEach(id=>qs(id).checked=false);
@@ -356,25 +365,33 @@ function resetAll(){
   qs('result').classList.remove('show');
 }
 
-/* ===== ИСТОРИЯ ===== */
 function saveHistory(arr){
   const h=JSON.parse(localStorage.getItem('history')||'[]');
   h.unshift({time:new Date().toLocaleString('ru-RU'),arr});
   localStorage.setItem('history',JSON.stringify(h.slice(0,50)));
   updateHistory();
 }
+
 function updateHistory(){
   const h=JSON.parse(localStorage.getItem('history')||'[]');
   const d=qs('history');
   d.innerHTML=h.length?'':'Пока пусто';
-  h.forEach(e=>d.innerHTML+=`<div class="history-entry"><span class="history-time">${e.time}</span>${e.arr.join(', ')}</div>`);
+  h.forEach(e=>{
+    d.innerHTML+=`<div class="history-entry">
+      <span class="history-time">${e.time}</span>${e.arr.join(', ')}
+    </div>`;
+  });
 }
-updateHistory();
 
-/* ===== ТЕМА ===== */
+/* инициализация */
+updateHistory();
 if(localStorage.getItem('theme')==='dark'){
   document.body.classList.add('dark');
   qs('themeSwitch').checked=true;
+}
+if(localStorage.getItem('showHistory')==='0'){
+  qs('toggleHistory').checked=false;
+  qs('historyBlock').style.display='none';
 }
 </script>
 </body>
